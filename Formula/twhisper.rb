@@ -1,8 +1,8 @@
 class Twhisper < Formula
   desc "Terminal-based voice-to-text transcription tool with AI formatting"
   homepage "https://github.com/svenmalvik/twhisper"
-  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.26.tar.gz"
-  sha256 "$SHA256"
+  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.27.tar.gz"
+  sha256 "9815260fcef60f5888867c8c99fd829e577e2062f8b384287b87acc6fd32e2f3"
   license "MIT"
 
   depends_on "node@20"
@@ -14,8 +14,8 @@ class Twhisper < Formula
     # Create a wrapper script that ensures Node.js is available
     (bin/"Twhisper").write <<~EOS
       #!/bin/bash
-      export PATH="#{Formula["node@20"].opt_bin}:$PATH"
-      exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/twhisper" "$@"
+      export PATH="#{Formula["node@20"].opt_bin}:/opt/hostedtoolcache/node/20.19.5/x64/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+      exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/twhisper" ""
     EOS
   end
 
