@@ -1,8 +1,8 @@
 class Twhisper < Formula
   desc "Terminal-based voice-to-text transcription tool with AI formatting"
   homepage "https://github.com/svenmalvik/twhisper"
-  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.33.tar.gz"
-  sha256 "76a63a0be69bbf50e6123e95f07cb5bf701702550c4be21e218c412620dddb75"
+  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.34.tar.gz"
+  sha256 "bb28a44c872a3eae5491d542d18026e780e0742ae3202086ef92d521144a5823"
   license "MIT"
 
   depends_on "node@20"
@@ -13,10 +13,10 @@ class Twhisper < Formula
     libexec.install Dir["*"]
     
     # Create a wrapper script that ensures Node.js and sox are available
-    (bin/"Twhisper").write <<~EOS
+    (bin/"twhisper").write <<~EOS
       #!/bin/bash
       export PATH="#{Formula["node@20"].opt_bin}:#{Formula["sox"].opt_bin}:/opt/hostedtoolcache/node/20.19.5/x64/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-      exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/twhisper" ""
+      exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/dist/index.js" ""
     EOS
   end
 
@@ -40,6 +40,6 @@ class Twhisper < Formula
 
   test do
     # Test that the binary exists and can show help
-    assert_match "voice-to-text", shell_output("#{bin}/Twhisper --help 2>&1", 1)
+    assert_match "voice-to-text", shell_output("#{bin}/twhisper --help 2>&1", 1)
   end
 end
