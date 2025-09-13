@@ -1,28 +1,21 @@
 class Twhisper < Formula
   desc "Terminal-based voice-to-text transcription tool with AI formatting"
   homepage "https://github.com/svenmalvik/twhisper"
-  url "https://github.com/svenmalvik/twhisper/archive/refs/tags/v0.1.24.tar.gz"
-  sha256 "31eb87aeb6408c5d9c1dc68708d63ee31abb88464d3533c4ee7b4f02318fb48a"
+  url "https://github.com/svenmalvik/twhisper/releases/download/v0.1.25/twhisper-0.1.25.tar.gz"
+  sha256 "$SHA256"
   license "MIT"
-  head "https://github.com/svenmalvik/twhisper.git", branch: "main"
 
   depends_on "node@20"
 
   def install
-    # Install Node.js dependencies (including dev dependencies for build)
-    system "npm", "install"
-    
-    # Build the TypeScript project
-    system "npm", "run", "build:prod"
-    
-    # Create the libexec directory for the Node.js application
+    # Install the pre-built binary and dependencies
     libexec.install Dir["*"]
     
     # Create a wrapper script that ensures Node.js is available
     (bin/"Twhisper").write <<~EOS
       #!/bin/bash
       export PATH="#{Formula["node@20"].opt_bin}:$PATH"
-      exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/dist/index.js" "$@"
+      exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/twhisper" "$@"
     EOS
   end
 
