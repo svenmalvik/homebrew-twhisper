@@ -1,8 +1,8 @@
 class Twhisper < Formula
   desc "Terminal-based voice-to-text transcription tool with AI formatting"
   homepage "https://github.com/svenmalvik/twhisper"
-  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.36.tar.gz"
-  sha256 "62feea50a20f43a9b0fd85969d271f50f09ba3edacbc3c3dab9138a8a8dc8792"
+  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.37.tar.gz"
+  sha256 "0ee1e811b7e7e2aae7fec3b2b7a9eb0fa8931617ffc5416fa228e9bfb8f5bde2"
   license "MIT"
 
   depends_on "node@20"
@@ -15,7 +15,7 @@ class Twhisper < Formula
     # Create a wrapper script that ensures Node.js and sox are available
     (bin/"twhisper").write <<~EOS
       #!/bin/bash
-      export PATH="#{Formula["node@20"].opt_bin}:#{Formula["sox"].opt_bin}:$PATH"
+      export PATH="#{Formula["node@20"].opt_bin}:#{Formula["sox"].opt_bin}:/opt/hostedtoolcache/node/20.19.5/x64/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
       exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/dist/index.js" "$@"
     EOS
   end
