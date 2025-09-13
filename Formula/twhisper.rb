@@ -15,7 +15,7 @@ class Twhisper < Formula
     # Create a wrapper script that ensures Node.js and sox are available
     (bin/"twhisper").write <<~EOS
       #!/bin/bash
-      export PATH="#{Formula["node@20"].opt_bin}:#{Formula["sox"].opt_bin}:/opt/hostedtoolcache/node/20.19.5/x64/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+      export PATH="#{Formula["node@20"].opt_bin}:#{Formula["sox"].opt_bin}:$PATH"
       exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/dist/index.js" "$@"
     EOS
   end
