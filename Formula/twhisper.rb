@@ -1,8 +1,8 @@
 class Twhisper < Formula
   desc "Terminal-based voice-to-text transcription tool with AI formatting"
   homepage "https://github.com/svenmalvik/twhisper"
-  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.34.tar.gz"
-  sha256 "bb28a44c872a3eae5491d542d18026e780e0742ae3202086ef92d521144a5823"
+  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.35.tar.gz"
+  sha256 "25916e3579e2f098193d08d4d59303c88f1c5b203fdd73de96d7547b76701e37"
   license "MIT"
 
   depends_on "node@20"
@@ -16,7 +16,7 @@ class Twhisper < Formula
     (bin/"twhisper").write <<~EOS
       #!/bin/bash
       export PATH="#{Formula["node@20"].opt_bin}:#{Formula["sox"].opt_bin}:/opt/hostedtoolcache/node/20.19.5/x64/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-      exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/dist/index.js" ""
+      exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/dist/index.js" "$@"
     EOS
   end
 
