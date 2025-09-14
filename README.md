@@ -90,18 +90,18 @@ Once configured, simply run:
 Twhisper
 ```
 
-### Getting Started with Premium
+### Getting Started with Professional
 
 Ready to unlock the full power of Twhisper? Here's how to get started:
 
 ```bash
-# Step 1: Sign in (free and instant) - Google OAuth only
+# Step 1: Sign in (starter plan is instant) - Google OAuth only
 twhisper login
 
 # Step 2: Check your current plan
 twhisper status
 
-# Step 3: Upgrade to Premium (if desired)
+# Step 3: Upgrade to Professional (if desired)
 twhisper subscribe
 
 # Manage your subscription anytime
@@ -116,14 +116,14 @@ twhisper --version      # Check which version you're running
 twhisper status --refresh # Get the latest subscription info
 ```
 
-#### Why Choose Premium?
+#### Why Choose Professional?
 
-**Free Plan:**
+**Starter Plan:**
 - ✅ 1-minute recordings
 - ✅ All formatting modes (default, email, code, message, slack, professional casual)
 - ✅ Full AI transcription
 
-**Premium Plan:**
+**Professional Plan:
 - ⭐ **10-minute recordings** - Perfect for long meetings, interviews, and presentations
 - ⭐ **Real-time streaming** - See your words appear as you speak
 - ⭐ **Priority support** - Get help when you need it most
@@ -170,9 +170,9 @@ Twhisper offers six intelligent formatting modes that automatically adapt your t
 - 🎯 **Multiple Modes**: Default, Email, Code, Message, and Professional Casual formatting styles
 - 🔄 **Flexible Configuration**: Config files and UI settings
 - 🔐 **Authentication**: Google OAuth integration for secure account management (Google accounts only, for now)
-- 💳 **Premium Subscriptions**: Stripe-powered subscription management with extended features
+- 💳 **Professional Subscriptions**: Stripe-powered subscription management with extended features
 - 📊 **Usage Tracking**: Monitor recording limits and subscription status
-- 🚀 **Streaming Mode**: Real-time transcription for Premium users
+- 🚀 **Streaming Mode**: Real-time transcription for Professional users
 
 ## Updating
 
@@ -218,7 +218,7 @@ brew untap svenmalvik/twhisper  # Optional: removes the tap
 
 **💳 Subscription Problems:**
 - Run `twhisper status --refresh` to get the latest subscription info
-- If Premium features aren't working, try logging out and back in
+- If Professional features aren't working, try logging out and back in
 - Contact support if payment went through but features aren't activated
 
 **💡 Pro Tip:** Run `twhisper status` anytime to check your setup and subscription status!
@@ -230,7 +230,7 @@ We're here to help! 🤝
 ### Get Help Fast
 - **Installation problems?** [Report here](https://github.com/svenmalvik/homebrew-twhisper/issues) - we'll get you up and running
 - **App not working as expected?** [Let us know](https://github.com/svenmalvik/Twhisper/issues) - we fix bugs quickly
-- **Premium subscribers** get priority support - we typically respond within 24 hours
+- **Professional subscribers** get priority support - we typically respond within 24 hours
 
 ### Self-Service Options
 - Run `twhisper --help` for quick command reference
