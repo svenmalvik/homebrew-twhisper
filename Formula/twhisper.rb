@@ -7,6 +7,7 @@ class Twhisper < Formula
 
   depends_on "node@20"
   depends_on "sox"
+  depends_on "whisper-cpp"
 
   def install
     # Install the pre-built binary and dependencies
@@ -32,7 +33,11 @@ class Twhisper < Formula
          AZURE_OPENAI_WHISPER_DEPLOYMENT=your-whisper-deployment
          AZURE_OPENAI_GPT_DEPLOYMENT=your-gpt-deployment
          AZURE_OPENAI_API_VERSION=2024-02-01
-      
+
+      For local/streaming transcription:
+      3. Download a model (optional): mkdir -p ~/.whisper && curl -L "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin" -o ~/.whisper/ggml-tiny.en.bin
+         Note: whisper-cpp is now automatically installed as a dependency
+
       For detailed setup instructions, visit:
       https://github.com/svenmalvik/twhisper#configuration
     EOS
