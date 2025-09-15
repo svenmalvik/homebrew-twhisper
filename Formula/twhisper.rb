@@ -7,6 +7,7 @@ class Twhisper < Formula
 
   depends_on "node@20"
   depends_on "sox"
+  depends_on "whisper-cpp", optional: true
 
   def install
     # Install the pre-built binary and dependencies
@@ -23,7 +24,7 @@ class Twhisper < Formula
   def caveats
     <<~EOS
       Twhisper requires Azure OpenAI credentials to function.
-      
+
       Before using Twhisper:
       1. Set up Azure OpenAI service with Whisper and GPT deployments
       2. Create a .env file in your working directory or set environment variables:
@@ -32,7 +33,11 @@ class Twhisper < Formula
          AZURE_OPENAI_WHISPER_DEPLOYMENT=your-whisper-deployment
          AZURE_OPENAI_GPT_DEPLOYMENT=your-gpt-deployment
          AZURE_OPENAI_API_VERSION=2024-02-01
-      
+
+      For local/streaming transcription (optional):
+      3. Install whisper-cpp: brew install whisper-cpp
+      4. Download a model: mkdir -p ~/.whisper && curl -L "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin" -o ~/.whisper/ggml-tiny.en.bin
+
       For detailed setup instructions, visit:
       https://github.com/svenmalvik/twhisper#configuration
     EOS
