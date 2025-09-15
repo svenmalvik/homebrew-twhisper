@@ -1,12 +1,13 @@
 class Twhisper < Formula
   desc "Terminal-based voice-to-text transcription tool with AI formatting"
   homepage "https://github.com/svenmalvik/twhisper"
-  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.41.tar.gz"
-  sha256 "626220700172b909acbd384c8076815f50fdcf128ce4b0ba0ba6af6f508eb5c2"
+  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.42.tar.gz"
+  sha256 "501b45b0ba458014d93f5a81b572fae783a8433c95c25c75e1f7eb3bed8b76e3"
   license "MIT"
 
   depends_on "node@20"
   depends_on "sox"
+  depends_on "whisper-cpp"
 
   def install
     # Install the pre-built binary and dependencies
@@ -32,7 +33,11 @@ class Twhisper < Formula
          AZURE_OPENAI_WHISPER_DEPLOYMENT=your-whisper-deployment
          AZURE_OPENAI_GPT_DEPLOYMENT=your-gpt-deployment
          AZURE_OPENAI_API_VERSION=2024-02-01
-      
+
+      For local/streaming transcription:
+      3. Download a model (optional): mkdir -p ~/.whisper && curl -L "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin" -o ~/.whisper/ggml-tiny.en.bin
+         Note: whisper-cpp is now automatically installed as a dependency
+
       For detailed setup instructions, visit:
       https://github.com/svenmalvik/twhisper#configuration
     EOS
