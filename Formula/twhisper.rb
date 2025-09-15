@@ -1,13 +1,12 @@
 class Twhisper < Formula
   desc "Terminal-based voice-to-text transcription tool with AI formatting"
   homepage "https://github.com/svenmalvik/twhisper"
-  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.40.tar.gz"
-  sha256 "434f317f9853a2d39007b8e519fb6545a34b271f4cc52238e51d273dbccba341"
+  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.41.tar.gz"
+  sha256 "626220700172b909acbd384c8076815f50fdcf128ce4b0ba0ba6af6f508eb5c2"
   license "MIT"
 
   depends_on "node@20"
   depends_on "sox"
-  depends_on "whisper-cpp"
 
   def install
     # Install the pre-built binary and dependencies
@@ -16,7 +15,7 @@ class Twhisper < Formula
     # Create a wrapper script that ensures Node.js and sox are available
     (bin/"twhisper").write <<~EOS
       #!/bin/bash
-      export PATH="#{Formula["node@20"].opt_bin}:#{Formula["sox"].opt_bin}:$PATH"
+      export PATH="#{Formula["node@20"].opt_bin}:#{Formula["sox"].opt_bin}:/opt/hostedtoolcache/node/20.19.5/x64/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
       exec "#{Formula["node@20"].opt_bin}/node" "#{libexec}/dist/index.js" "$@"
     EOS
   end
@@ -33,11 +32,7 @@ class Twhisper < Formula
          AZURE_OPENAI_WHISPER_DEPLOYMENT=your-whisper-deployment
          AZURE_OPENAI_GPT_DEPLOYMENT=your-gpt-deployment
          AZURE_OPENAI_API_VERSION=2024-02-01
-
-      For local/streaming transcription:
-      3. Download a model (optional): mkdir -p ~/.whisper && curl -L "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin" -o ~/.whisper/ggml-tiny.en.bin
-         Note: whisper-cpp is now automatically installed as a dependency
-
+      
       For detailed setup instructions, visit:
       https://github.com/svenmalvik/twhisper#configuration
     EOS
