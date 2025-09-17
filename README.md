@@ -1,3 +1,5 @@
+# Twhisper
+
 ```
 ┌───┬───┬───┬───┬───┬───┬───┬───┐
 │ T │ W │ H │ I │ S │ P │ E │ R │
@@ -7,9 +9,24 @@
 
 A terminal-based voice-to-text transcription tool that transforms your speech into perfectly formatted text using AI. Record audio with a simple spacebar press, get accurate transcriptions, and have your text automatically formatted for emails, code documentation, messages, or general use.
 
-## Installation
+## 🏗️ Architecture
 
-To install Twhisper using this tap:
+Twhisper is built as a **monorepo** with a workspace-based architecture:
+
+```
+twhisper/
+├── cli/                    # React/Ink CLI application
+├── shared/                 # Shared services and utilities
+├── electron/              # Future Electron status bar app
+├── supabase/              # Database configuration
+├── scripts/               # Development utilities
+├── docs/                  # Documentation
+└── test/                  # Integration tests
+```
+
+## 📦 Installation
+
+### Option 1: Homebrew (Recommended)
 
 ```bash
 # Add the tap
@@ -25,7 +42,24 @@ Or install directly in one command:
 brew install svenmalvik/twhisper/twhisper
 ```
 
-## Prerequisites
+### Option 2: From Source (Development)
+
+```bash
+# Clone the repository
+git clone https://github.com/svenmalvik/twhisper.git
+cd twhisper
+
+# Install dependencies
+npm ci
+
+# Build all workspaces
+npm run build
+
+# Run the CLI
+npm run start --workspace=cli
+```
+
+## 🛠️ Prerequisites
 
 Before using Twhisper, you need:
 
@@ -37,7 +71,7 @@ Before using Twhisper, you need:
 
 **Default behavior:** Twhisper uses local whisper.cpp for transcription (faster, offline, no API costs) and Azure OpenAI GPT for text formatting. You can optionally configure it to use Azure OpenAI for both transcription and formatting.
 
-## Configuration
+## ⚙️ Configuration
 
 **First-time setup**: When you run Twhisper for the first time without any configuration, it will display a helpful welcome message with setup instructions.
 
@@ -48,7 +82,7 @@ Twhisper supports two methods of configuration:
 Press **S** or **Ctrl+,** while running Twhisper to open the Settings UI to view your current configuration:
 
 - **Azure OpenAI**: View API credentials and deployments
-- **Application**: View default mode, recording limits, and auto-copy behavior  
+- **Application**: View default mode, recording limits, and auto-copy behavior
 - **Audio**: View sample rates, channels, and audio thresholds
 - **Interface**: View theme, waveform display, and refresh rates
 
@@ -80,7 +114,7 @@ Configuration values are loaded in this priority order:
 
 **Note**: When you first run Twhisper, it will create a configuration file at `~/.twhisper/config` with all available settings and their defaults. You can customize any additional settings there.
 
-## Usage
+## 🚀 Usage
 
 ### Basic Voice Transcription
 
@@ -105,7 +139,7 @@ twhisper status
 twhisper subscribe
 
 # Manage your subscription anytime
-twhisper manage         # Update billing, cancel, or modify your plan
+twhisper manage         # Update billing, cancel, or modify your plan (not supported yet)
 twhisper logout         # Sign out when needed
 ```
 
@@ -123,16 +157,19 @@ twhisper status --refresh # Get the latest subscription info
 - ✅ All formatting modes (default, email, code, message, slack, professional casual)
 - ✅ Full AI transcription
 
-**Professional Plan:
+**Professional Plan:**
 - ⭐ **10-minute recordings** - Perfect for long meetings, interviews, and presentations
 - ⭐ **Real-time streaming** - See your words appear as you speak
+- ⭐ **Multilingual support** - Norwegian, Danish, and Finnish transcription
 - ⭐ **Priority support** - Get help when you need it most
 - ⭐ **Support development** - Help us build amazing features for you
 
 ### Keyboard Controls
 
 - **SPACE** - Start/stop audio recording
-- **TAB** - Switch between formatting modes (default → email → code → message → slack → professional casual)
+- **TAB** - Switch between formatting modes (default → email → slack → professional casual)
+- **M** - Toggle processing mode (batch ↔ streaming) - Professional feature
+- **W** - Toggle language (multilingual requires Professional subscription)
 - **S** or **Ctrl+,** - Open Settings UI to view configuration
 - **ESC** - Cancel current recording
 - **Q** - Quit application
@@ -144,111 +181,209 @@ When the Settings UI is open:
 - **↑** / **↓** - Navigate between fields within a section
 - **ESC** - Close Settings UI
 
-**Note**: The Settings UI is read-only for viewing configuration values.
+## 🔧 Development
 
-### Formatting Modes
-
-Twhisper offers six intelligent formatting modes that automatically adapt your transcribed speech for different contexts:
-
-- **Default**: Clean, professional text with proper grammar, punctuation, and filler words removed. Perfect for general documentation and note-taking.
-- **Email**: Professional business email formatting with appropriate structure, greetings, closings, and courteous tone. Ideal for workplace communication.
-- **Code**: Technical documentation style with precise programming terminology and clear instructions. Optimized for AI IDEs and development commands.
-- **Message**: Casual, conversational tone suitable for messaging apps and informal communication. Maintains natural speech patterns while improving clarity.
-- **Slack**: Friendly team messaging format with engaging emojis and casual tone. Perfect for workplace chat applications.
-- **Professional Casual**: Polished yet approachable business communication. Smart, confident tone suitable for professional Slack/Teams messages.
-
-**How to switch modes**: Press **TAB** during recording or while idle to cycle through modes: default → email → code → message → slack → professional casual → default...
-
-## Features
-
-- 🎤 **Voice Recording**: Press SPACE to start/stop audio recording
-- 🤖 **AI Transcription**: Uses local whisper.cpp by default, with Azure OpenAI Whisper as fallback
-- ✨ **Smart Formatting**: Azure OpenAi-powered text formatting with multiple modes
-- 📋 **Auto Clipboard**: Automatically copies formatted text to your clipboard
-- ⌨️ **Keyboard Controls**: Simple keyboard shortcuts for all operations
-- ⚙️ **Settings UI**: View current configuration in terminal interface
-- 🎯 **Multiple Modes**: Default, Email, Code, Message, and Professional Casual formatting styles
-- 🔄 **Flexible Configuration**: Config files and UI settings
-- 🔐 **Authentication**: Google OAuth integration for secure account management (Google accounts only, for now)
-- 💳 **Professional Subscriptions**: Stripe-powered subscription management with extended features
-- 📊 **Usage Tracking**: Monitor recording limits and subscription status
-- 🚀 **Streaming Mode**: Real-time transcription for Professional users
-
-## Updating
-
-To update to the latest version:
+### Monorepo Commands
 
 ```bash
-brew update
-brew upgrade twhisper
+# Install dependencies for all workspaces
+npm ci
+
+# Build all workspaces
+npm run build
+
+# Build specific workspace
+npm run build --workspace=cli
+npm run build --workspace=shared
+
+# Run tests
+npm run test
+npm run test:fast      # TypeScript + lint checks only
+
+# Development mode
+npm run dev            # Watch mode for all workspaces
+npm run dev:cli        # Watch mode for CLI only
+
+# Utility scripts
+npm run debug:transcription    # Debug transcription service
+npm run validate:macos        # Validate macOS requirements
+npm run test:release-build    # Test release build process
 ```
 
-## Uninstalling
-
-To remove Twhisper:
+### CLI Development
 
 ```bash
-brew uninstall twhisper
-brew untap svenmalvik/twhisper  # Optional: removes the tap
+# Run CLI in development
+cd cli
+npm run dev            # Watch mode
+npm run start          # Run built version
+
+# From root (recommended)
+npm run start --workspace=cli
 ```
 
-## Troubleshooting
+### Shared Services Development
 
-### Common Issues & Quick Fixes
+```bash
+# Build shared services
+cd shared
+npm run build
+npm run dev           # Watch mode
 
-**🔑 "API key not found" error:**
-- Double-check your Azure OpenAI credentials in your `~/.twhisper/config` file
-- Make sure your Azure OpenAI resource is active and accessible
-- Try running `twhisper status` to see your current configuration
+# Run tests
+npm run test
+npm run test:integration
+```
 
-**🎤 "No microphone access" error:**
-- Grant microphone permissions in System Preferences → Security & Privacy → Microphone
-- Restart your terminal after granting permissions
-- On newer macOS versions, you may need to restart the entire Terminal app
+## 🏗️ Project Structure
 
-**🌐 "Network error" during transcription:**
-- Verify your Azure OpenAI endpoint and deployment names are correct
-- Check your internet connection
-- Ensure your API quotas haven't been exceeded (check Azure portal)
+```
+twhisper/
+├── cli/                           # CLI Application
+│   ├── src/
+│   │   ├── ui/                   # React/Ink UI components
+│   │   ├── commands/             # CLI commands (login, status, etc.)
+│   │   └── index.ts              # CLI entry point
+│   ├── dist/                     # Built CLI
+│   └── package.json              # CLI dependencies
+│
+├── shared/                       # Shared Services & Utilities
+│   ├── services/                 # Core business logic
+│   │   ├── ProcessingPipeline.ts # Main orchestration
+│   │   ├── RecordingService.ts   # Audio recording
+│   │   ├── TranscriptionService.ts # Whisper integration
+│   │   ├── FormattingService.ts  # GPT formatting
+│   │   └── ...
+│   ├── types/                    # TypeScript definitions
+│   ├── interfaces/               # Service contracts
+│   ├── utils/                    # Utility functions
+│   ├── dist/                     # Built shared services
+│   └── package.json              # Shared dependencies
+│
+├── electron/                     # Future Electron App
+│   └── package.json              # Electron workspace
+│
+├── supabase/                     # Database & Functions
+│   ├── config.toml               # Supabase configuration
+│   ├── functions/                # Edge functions
+│   └── migrations/               # Database schema
+│
+├── scripts/                      # Development Scripts
+│   ├── debug-transcription.js    # Debug utilities
+│   ├── validate-macos.sh         # System validation
+│   └── test-release-build.sh     # Release testing
+│
+├── docs/                         # Documentation
+│   ├── 1_specs/                  # Specifications
+│   ├── 2_plans/                  # Planning documents
+│   └── 3_tasks/                  # Task definitions
+│
+└── test/                         # Integration Tests
+    ├── api-contract-validation-test.js
+    ├── basic-integration-test.js
+    └── ...
+```
 
-**🔐 Authentication Issues:**
-- If login fails, try `twhisper logout` followed by `twhisper login`
-- Check your internet connection for Google OAuth
-- Clear browser cache if the login page doesn't load properly
+## 🧪 Testing
 
-**💳 Subscription Problems:**
-- Run `twhisper status --refresh` to get the latest subscription info
-- If Professional features aren't working, try logging out and back in
-- Contact support if payment went through but features aren't activated
+```bash
+# Fast tests (TypeScript + lint)
+npm run test:fast
 
-**💡 Pro Tip:** Run `twhisper status` anytime to check your setup and subscription status!
+# Full test suite (may timeout due to API limits)
+npm run test
 
-## Support & Community
+# Integration tests
+npm run test:integration
 
-We're here to help! 🤝
+# Test release build process
+npm run test:release-build
 
-### Get Help Fast
-- **Installation problems?** [Report here](https://github.com/svenmalvik/homebrew-twhisper/issues) - we'll get you up and running
-- **App not working as expected?** [Let us know](https://github.com/svenmalvik/Twhisper/issues) - we fix bugs quickly
-- **Professional subscribers** get priority support - we typically respond within 24 hours
+# Shared service tests
+npm run test --workspace=shared
 
-### Self-Service Options
-- Run `twhisper --help` for quick command reference
-- Check `twhisper status` to diagnose common issues
-- Review the troubleshooting section above for instant fixes
+# CLI tests
+npm run test --workspace=cli
+```
 
-### Feature Requests
-Got an idea that would make Twhisper better? We love hearing from our users! [Share your ideas](https://github.com/svenmalvik/Twhisper/issues) with us.
+## 📈 Architecture Patterns
 
-## Contributing
+### Service-Oriented Architecture
+- **ServiceManager**: Manages lifecycle of all services
+- **ProcessingPipeline**: Orchestrates recording → transcription → formatting
+- **Event-driven**: Services communicate via EventEmitter patterns
 
-1. Fork this repository
-2. Make your changes to the formula
-3. Test the formula locally
-4. Submit a pull request
+### Monorepo Benefits
+- **Code Sharing**: Shared services used by both CLI and future Electron app
+- **Type Safety**: Consistent TypeScript types across all workspaces
+- **Dependency Management**: Centralized dependency management
+- **Build Pipeline**: Coordinated builds with proper dependency order
 
-## License
+### Technology Stack
+- **Frontend**: React + Ink (terminal UI)
+- **Backend Services**: Node.js + TypeScript
+- **AI Integration**: Azure OpenAI (Whisper + GPT)
+- **Audio**: node-record-lpcm16 + whisper.cpp
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Google OAuth via Supabase
+- **Build**: TypeScript + npm workspaces
 
-This tap is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📋 Troubleshooting
 
-The Twhisper CLI tool itself is also licensed under the MIT License.
+### Common Issues
+
+1. **Environment Variables Not Loading**
+   - The CLI now automatically loads `.env` from the project root
+   - Ensure your `.env` file is in the root directory when developing
+
+2. **Build Errors**
+   - Build shared services first: `npm run build --workspace=shared`
+   - Then build CLI: `npm run build --workspace=cli`
+
+3. **Import Errors**
+   - Make sure shared services are built before building CLI
+   - Check TypeScript project references in `tsconfig.json`
+
+4. **Audio Issues**
+   - Run `npm run validate:macos` to check system requirements
+   - Ensure microphone permissions are granted
+
+For detailed troubleshooting, see [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
+
+## 🤝 Contributing
+
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Install dependencies**: `npm ci`
+4. **Build all workspaces**: `npm run build`
+5. **Run tests**: `npm run test:fast`
+6. **Commit changes**: `git commit -m 'Add amazing feature'`
+7. **Push to branch**: `git push origin feature/amazing-feature`
+8. **Open a Pull Request**
+
+### Development Workflow
+
+```bash
+# Start development
+npm run dev              # Watch mode for all workspaces
+npm run start --workspace=cli  # Run CLI
+
+# Before committing
+npm run test:fast        # Quick validation
+npm run lint            # Code style check
+npm run type-check      # TypeScript validation
+```
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 🔗 Links
+
+- **Homepage**: [https://github.com/svenmalvik/twhisper](https://github.com/svenmalvik/twhisper)
+- **Issues**: [https://github.com/svenmalvik/twhisper/issues](https://github.com/svenmalvik/twhisper/issues)
+- **Homebrew Tap**: [https://github.com/svenmalvik/homebrew-twhisper](https://github.com/svenmalvik/homebrew-twhisper)
+
+---
+
+**Made with ❤️ by [Sven Malvik](https://github.com/svenmalvik)**

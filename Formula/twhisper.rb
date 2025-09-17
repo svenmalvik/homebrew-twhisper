@@ -1,8 +1,8 @@
 class Twhisper < Formula
   desc "Terminal-based voice-to-text transcription tool with AI formatting"
   homepage "https://github.com/svenmalvik/twhisper"
-  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.48.tar.gz"
-  sha256 "99a1d821b1a8cfaaa23614fbc9868cab2b3557eb6642c7ce5bcf27d4551923b4"
+  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.1.50.tar.gz"
+  sha256 "21e34fb78b4d893f3690e5249468862b7d621f1a40ab99b15803d378bfc9fe97"
   license "MIT"
 
   depends_on "node@20"
@@ -44,7 +44,7 @@ class Twhisper < Formula
   end
 
   test do
-    # Test that the binary exists and can show help
-    assert_match "voice-to-text", shell_output("#{bin}/twhisper --help 2>&1", 1)
+    # Test that the binary exists and can show version
+    assert_match "Twhisper v", shell_output("#{bin}/twhisper --version")
   end
 end
