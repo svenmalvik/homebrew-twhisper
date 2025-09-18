@@ -18,7 +18,6 @@ twhisper/
 ├── cli/                    # React/Ink CLI application
 ├── shared/                 # Shared services and utilities
 ├── electron/              # Future Electron status bar app
-├── supabase/              # Database configuration
 ├── scripts/               # Development utilities
 ├── docs/                  # Documentation
 └── test/                  # Integration tests
@@ -42,7 +41,20 @@ Or install directly in one command:
 brew install svenmalvik/twhisper/twhisper
 ```
 
-### Option 2: From Source (Development)
+### Option 2: macOS DMG (Desktop App)
+
+Download the latest DMG from the [releases page](https://github.com/svenmalvik/homebrew-twhisper) for a desktop status bar application:
+
+1. Download the `twhisper-[version].dmg` file
+2. Open the DMG and drag `twhisper.app` to the Applications folder
+3. Launch the app from Applications folder
+4. **If blocked by macOS security**: Go to System Settings > Security and click "Open Anyway"
+5. Look for the Twhisper icon in your menu bar (top right)
+6. Right-click the icon to start recording
+
+**Note**: The DMG provides a desktop status bar app, while Homebrew provides the CLI version.
+
+### Option 3: From Source (Development)
 
 ```bash
 # Clone the repository
@@ -119,7 +131,6 @@ Configuration values are loaded in this priority order:
 ### Basic Voice Transcription
 
 Once configured, simply run:
-
 ```bash
 Twhisper
 ```
