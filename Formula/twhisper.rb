@@ -1,8 +1,8 @@
 class Twhisper < Formula
   desc "Terminal-based voice-to-text transcription tool with AI formatting"
   homepage "https://github.com/svenmalvik/twhisper"
-  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.2.10.tar.gz"
-  sha256 "f57a98ab994710ec62f5e79dea5ca3c1aac191e358d73ad6d792414fb8531cdc"
+  url "https://github.com/svenmalvik/homebrew-twhisper/raw/main/twhisper-0.2.11.tar.gz"
+  sha256 "20d90c4467cdc444924663a0d9487e7d6cf034166f1548e08a5e1e302adc2543"
   license "MIT"
 
   depends_on "node@20"

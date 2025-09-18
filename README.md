@@ -124,52 +124,32 @@ Once configured, simply run:
 Twhisper
 ```
 
-### Getting Started with Professional
+### Features Available to Everyone
 
-Ready to unlock the full power of Twhisper? Here's how to get started:
+Twhisper provides all features to every user without restrictions:
 
-```bash
-# Step 1: Sign in (starter plan is instant) - Google OAuth only
-twhisper login
+**🎤 Recording & Transcription:**
+- ✅ **10-minute recordings** - Perfect for long meetings, interviews, and presentations
+- ✅ **Real-time streaming** - See your words appear as you speak
+- ✅ **Multilingual support** - English, Norwegian, Danish, and Finnish transcription
+- ✅ **Local & cloud options** - Use local whisper.cpp or Azure OpenAI Whisper
 
-# Step 2: Check your current plan
-twhisper status
+**🎨 Text Formatting:**
+- ✅ **All formatting modes** - Default, email, slack, professional casual
+- ✅ **AI-powered formatting** - Azure OpenAI GPT for intelligent text enhancement
+- ✅ **Automatic clipboard copy** - Seamless workflow integration
 
-# Step 3: Upgrade to Professional (if desired)
-twhisper subscribe
-
-# Manage your subscription anytime
-twhisper manage         # Update billing, cancel, or modify your plan (not supported yet)
-twhisper logout         # Sign out when needed
-```
-
-**Quick Commands:**
-```bash
-twhisper --help         # Need help? We've got you covered
-twhisper --version      # Check which version you're running
-twhisper status --refresh # Get the latest subscription info
-```
-
-#### Why Choose Professional?
-
-**Starter Plan:**
-- ✅ 1-minute recordings
-- ✅ All formatting modes (default, email, code, message, slack, professional casual)
-- ✅ Full AI transcription
-
-**Professional Plan:**
-- ⭐ **10-minute recordings** - Perfect for long meetings, interviews, and presentations
-- ⭐ **Real-time streaming** - See your words appear as you speak
-- ⭐ **Multilingual support** - Norwegian, Danish, and Finnish transcription
-- ⭐ **Priority support** - Get help when you need it most
-- ⭐ **Support development** - Help us build amazing features for you
+**💻 User Experience:**
+- ✅ **Terminal UI** - Clean, responsive interface with React/Ink
+- ✅ **Keyboard shortcuts** - Efficient voice-to-text workflow
+- ✅ **Cross-platform** - Works on macOS, (Linux, and Windows not tested)
 
 ### Keyboard Controls
 
 - **SPACE** - Start/stop audio recording
 - **TAB** - Switch between formatting modes (default → email → slack → professional casual)
-- **M** - Toggle processing mode (batch ↔ streaming) - Professional feature
-- **W** - Toggle language (multilingual requires Professional subscription)
+- **M** - Toggle processing mode (batch ↔ streaming)
+- **W** - Toggle language (multilingual support included)
 - **S** or **Ctrl+,** - Open Settings UI to view configuration
 - **ESC** - Cancel current recording
 - **Q** - Quit application
@@ -242,7 +222,6 @@ twhisper/
 ├── cli/                           # CLI Application
 │   ├── src/
 │   │   ├── ui/                   # React/Ink UI components
-│   │   ├── commands/             # CLI commands (login, status, etc.)
 │   │   └── index.ts              # CLI entry point
 │   ├── dist/                     # Built CLI
 │   └── package.json              # CLI dependencies
@@ -263,7 +242,7 @@ twhisper/
 ├── electron/                     # Future Electron App
 │   └── package.json              # Electron workspace
 │
-├── supabase/                     # Database & Functions
+├── supabase/                     # Database & Functions (legacy)
 │   ├── config.toml               # Supabase configuration
 │   ├── functions/                # Edge functions
 │   └── migrations/               # Database schema
@@ -324,8 +303,8 @@ npm run test --workspace=cli
 - **Backend Services**: Node.js + TypeScript
 - **AI Integration**: Azure OpenAI (Whisper + GPT)
 - **Audio**: node-record-lpcm16 + whisper.cpp
-- **Database**: Supabase (PostgreSQL)
-- **Authentication**: Google OAuth via Supabase
+- **Database**: Supabase (PostgreSQL) - legacy components
+- **Authentication**: Removed - no authentication required
 - **Build**: TypeScript + npm workspaces
 
 ## 📋 Troubleshooting
