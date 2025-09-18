@@ -135,7 +135,7 @@ Twhisper provides all features to every user without restrictions:
 - ✅ **Local & cloud options** - Use local whisper.cpp or Azure OpenAI Whisper
 
 **🎨 Text Formatting:**
-- ✅ **All formatting modes** - Default, email, slack, professional casual
+- ✅ **All formatting modes** - Default, slack, professional casual
 - ✅ **AI-powered formatting** - Azure OpenAI GPT for intelligent text enhancement
 - ✅ **Automatic clipboard copy** - Seamless workflow integration
 
@@ -147,7 +147,7 @@ Twhisper provides all features to every user without restrictions:
 ### Keyboard Controls
 
 - **SPACE** - Start/stop audio recording
-- **TAB** - Switch between formatting modes (default → email → slack → professional casual)
+- **TAB** - Switch between formatting modes (default → slack → professional casual)
 - **M** - Toggle processing mode (batch ↔ streaming)
 - **W** - Toggle language (multilingual support included)
 - **S** or **Ctrl+,** - Open Settings UI to view configuration
