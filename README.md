@@ -4,20 +4,18 @@
 ┌───┬───┬───┬───┬───┬───┬───┬───┐
 │ T │ W │ H │ I │ S │ P │ E │ R │
 └───┴───┴───┴───┴───┴───┴───┴───┘
- Terminal Whisper CLI
 ```
 
-A terminal-based voice-to-text transcription tool that transforms your speech into perfectly formatted text using AI. Record audio with a simple spacebar press, get accurate transcriptions, and have your text automatically formatted for emails, code documentation, messages, or general use.
+A powerful macOS desktop application that transforms your speech into perfectly formatted text using AI. With a convenient menu bar interface, get accurate transcriptions and have your text automatically formatted for emails, code documentation, messages, or general use. Supports English, Norwegian, Danish, and Finnish.
 
 ## 🏗️ Architecture
 
-Twhisper is built as a **monorepo** with a workspace-based architecture:
+Twhisper is built as a **desktop application** for macOS with a clean menu bar interface:
 
 ```
 twhisper/
-├── cli/                    # React/Ink CLI application
-├── shared/                 # Shared services and utilities
-├── electron/              # Future Electron status bar app
+├── electron/              # Electron desktop application
+├── shared/                # Shared services and utilities
 ├── scripts/               # Development utilities
 ├── docs/                  # Documentation
 └── test/                  # Integration tests
@@ -25,36 +23,18 @@ twhisper/
 
 ## 📦 Installation
 
-### Option 1: Homebrew (Recommended)
+### macOS DMG
 
-```bash
-# Add the tap
-brew tap svenmalvik/twhisper
-
-# Install Twhisper
-brew install twhisper
-```
-
-Or install directly in one command:
-
-```bash
-brew install svenmalvik/twhisper/twhisper
-```
-
-### Option 2: macOS DMG (Desktop App)
-
-Download the latest DMG from the [releases page](https://github.com/svenmalvik/homebrew-twhisper) for a desktop status bar application:
+Download the latest DMG from the [releases page](https://github.com/svenmalvik/twhisper/releases) for the desktop application:
 
 1. Download the `twhisper-[version].dmg` file
-2. Open the DMG and drag `twhisper.app` to the Applications folder
+2. Open the DMG and drag `Twhisper.app` to the Applications folder
 3. Launch the app from Applications folder
 4. **If blocked by macOS security**: Go to System Settings > Security and click "Open Anyway"
 5. Look for the Twhisper icon in your menu bar (top right)
 6. Right-click the icon to start recording
 
-**Note**: The DMG provides a desktop status bar app, while Homebrew provides the CLI version.
-
-### Option 3: From Source (Development)
+### From Source (Development)
 
 ```bash
 # Clone the repository
@@ -64,11 +44,11 @@ cd twhisper
 # Install dependencies
 npm ci
 
-# Build all workspaces
+# Build the application
 npm run build
 
-# Run the CLI
-npm run start --workspace=cli
+# Run the Electron app
+npm run start:electron
 ```
 
 ## 🛠️ Prerequisites
@@ -79,7 +59,7 @@ Before using Twhisper, you need:
 - **Azure OpenAI Account** - [Set up here](https://azure.microsoft.com/en-us/products/ai-services/openai-service) for GPT text formatting
 
 **Optional (for advanced features):**
-- **Azure OpenAI Whisper Deployment** - Only needed if you set `USE_LOCAL_WHISPER=false` to use cloud transcription instead of local whisper.cpp
+- **Azure OpenAI Transcription Deployment** - Only needed if you set `USE_LOCAL_WHISPER=false` to use cloud transcription instead of local whisper.cpp
 
 **Default behavior:** Twhisper uses local whisper.cpp for transcription (faster, offline, no API costs) and Azure OpenAI GPT for text formatting. You can optionally configure it to use Azure OpenAI for both transcription and formatting.
 
@@ -112,8 +92,9 @@ AZURE_OPENAI_GPT_DEPLOYMENT=your-gpt-deployment-name
 AZURE_OPENAI_API_VERSION=2024-02-15-preview
 
 # Optional: Transcription Settings (defaults to local whisper.cpp)
-USE_LOCAL_WHISPER=true  # Uses local whisper.cpp (default)
+USE_LOCAL_WHISPER=false
 # Set to false to use Azure OpenAI Whisper instead (requires AZURE_OPENAI_WHISPER_DEPLOYMENT)
+AZURE_OPENAI_WHISPER_DEPLOYMENT=your-gpt-transcription-deployment-name
 ```
 
 **Note**: Additional settings are available in the auto-generated configuration file. When you first run Twhisper, it creates `~/.twhisper/config` with all available options and their defaults.
@@ -130,70 +111,46 @@ Configuration values are loaded in this priority order:
 
 ### Basic Voice Transcription
 
-Once configured, simply run:
-```bash
-Twhisper
-```
+Once configured, simply:
+1. Look for the Twhisper icon in your menu bar
+2. Right-click the icon to open the context menu
+3. Select "Start Recording" or use the keyboard shortcut
 
-### Features Available to Everyone
+### Menu Bar Controls
 
-Twhisper provides all features to every user without restrictions:
+- **Click menu bar icon** - Access all recording and configuration options
+- **Start Recording** - Begin voice transcription
+- **Stop Recording** - End current recording session
+- **Settings** - Access configuration options
+- **Quit** - Exit the application
 
-**🎤 Recording & Transcription:**
-- ✅ **10-minute recordings** - Perfect for long meetings, interviews, and presentations
-- ✅ **Real-time streaming** - See your words appear as you speak
-- ✅ **Multilingual support** - English, Norwegian, Danish, and Finnish transcription
-- ✅ **Local & cloud options** - Use local whisper.cpp or Azure OpenAI Whisper
+### Keyboard Shortcuts
 
-**🎨 Text Formatting:**
-- ✅ **All formatting modes** - Default, slack, professional casual
-- ✅ **AI-powered formatting** - Azure OpenAI GPT for intelligent text enhancement
-- ✅ **Automatic clipboard copy** - Seamless workflow integration
-
-**💻 User Experience:**
-- ✅ **Terminal UI** - Clean, responsive interface with React/Ink
-- ✅ **Keyboard shortcuts** - Efficient voice-to-text workflow
-- ✅ **Cross-platform** - Works on macOS, (Linux, and Windows not tested)
-
-### Keyboard Controls
-
-- **SPACE** - Start/stop audio recording
-- **TAB** - Switch between formatting modes (default → slack → professional casual)
-- **M** - Toggle processing mode (batch ↔ streaming)
-- **W** - Toggle language (multilingual support included)
-- **S** or **Ctrl+,** - Open Settings UI to view configuration
-- **ESC** - Cancel current recording
-- **Q** - Quit application
-
-#### Settings UI Controls
-
-When the Settings UI is open:
-- **TAB** / **Shift+TAB** - Navigate between sections (circular)
-- **↑** / **↓** - Navigate between fields within a section
-- **ESC** - Close Settings UI
+- **Global hotkey** - Start/stop recording from anywhere on your Mac
+- **Settings shortcut** - Quick access to configuration
+- **Language switching** - Cycle through supported languages for local Whisper (English, Norwegian, Danish, Finnish)
 
 ## 🔧 Development
 
-### Monorepo Commands
+### Application Commands
 
 ```bash
-# Install dependencies for all workspaces
+# Install dependencies
 npm ci
 
-# Build all workspaces
+# Build the application
 npm run build
 
 # Build specific workspace
-npm run build --workspace=cli
+npm run build --workspace=electron
 npm run build --workspace=shared
 
 # Run tests
 npm run test
-npm run test:fast      # TypeScript + lint checks only
 
 # Development mode
-npm run dev            # Watch mode for all workspaces
-npm run dev:cli        # Watch mode for CLI only
+npm run dev:electron   # Electron development mode
+npm run dev:shared     # Watch mode for shared services
 
 # Utility scripts
 npm run debug:transcription    # Debug transcription service
@@ -201,16 +158,16 @@ npm run validate:macos        # Validate macOS requirements
 npm run test:release-build    # Test release build process
 ```
 
-### CLI Development
+### Electron Development
 
 ```bash
-# Run CLI in development
-cd cli
-npm run dev            # Watch mode
+# Run Electron app in development
+cd electron
+npm run dev            # Development mode with hot reload
 npm run start          # Run built version
 
 # From root (recommended)
-npm run start --workspace=cli
+npm run dev:electron
 ```
 
 ### Shared Services Development
@@ -230,45 +187,39 @@ npm run test:integration
 
 ```
 twhisper/
-├── cli/                           # CLI Application
+├── electron/                     # Electron Desktop Application
 │   ├── src/
-│   │   ├── ui/                   # React/Ink UI components
-│   │   └── index.ts              # CLI entry point
-│   ├── dist/                     # Built CLI
-│   └── package.json              # CLI dependencies
+│   │   ├── main/                # Main process (menu bar, system integration)
+│   │   ├── renderer/            # Renderer process (UI)
+│   │   └── preload/             # Preload scripts (IPC bridge)
+│   ├── assets/                  # Application icons and resources
+│   ├── dist/                    # Built Electron app
+│   └── package.json             # Electron dependencies
 │
-├── shared/                       # Shared Services & Utilities
-│   ├── services/                 # Core business logic
+├── shared/                      # Shared Services & Utilities
+│   ├── services/                # Core business logic
 │   │   ├── ProcessingPipeline.ts # Main orchestration
 │   │   ├── RecordingService.ts   # Audio recording
 │   │   ├── TranscriptionService.ts # Whisper integration
 │   │   ├── FormattingService.ts  # GPT formatting
 │   │   └── ...
-│   ├── types/                    # TypeScript definitions
-│   ├── interfaces/               # Service contracts
-│   ├── utils/                    # Utility functions
-│   ├── dist/                     # Built shared services
-│   └── package.json              # Shared dependencies
+│   ├── types/                   # TypeScript definitions
+│   ├── interfaces/              # Service contracts
+│   ├── utils/                   # Utility functions
+│   ├── dist/                    # Built shared services
+│   └── package.json             # Shared dependencies
 │
-├── electron/                     # Future Electron App
-│   └── package.json              # Electron workspace
+├── scripts/                     # Development Scripts
+│   ├── debug-transcription.js   # Debug utilities
+│   ├── validate-macos.sh        # System validation
+│   └── build-dmg.sh            # DMG building script
 │
-├── supabase/                     # Database & Functions (legacy)
-│   ├── config.toml               # Supabase configuration
-│   ├── functions/                # Edge functions
-│   └── migrations/               # Database schema
+├── docs/                        # Documentation
+│   ├── 1_specs/                 # Specifications
+│   ├── 2_plans/                 # Planning documents
+│   └── 3_tasks/                 # Task definitions
 │
-├── scripts/                      # Development Scripts
-│   ├── debug-transcription.js    # Debug utilities
-│   ├── validate-macos.sh         # System validation
-│   └── test-release-build.sh     # Release testing
-│
-├── docs/                         # Documentation
-│   ├── 1_specs/                  # Specifications
-│   ├── 2_plans/                  # Planning documents
-│   └── 3_tasks/                  # Task definitions
-│
-└── test/                         # Integration Tests
+└── test/                        # Integration Tests
     ├── api-contract-validation-test.js
     ├── basic-integration-test.js
     └── ...
@@ -277,9 +228,6 @@ twhisper/
 ## 🧪 Testing
 
 ```bash
-# Fast tests (TypeScript + lint)
-npm run test:fast
-
 # Full test suite (may timeout due to API limits)
 npm run test
 
@@ -292,8 +240,8 @@ npm run test:release-build
 # Shared service tests
 npm run test --workspace=shared
 
-# CLI tests
-npm run test --workspace=cli
+# Electron tests
+npm run test --workspace=electron
 ```
 
 ## 📈 Architecture Patterns
@@ -310,13 +258,12 @@ npm run test --workspace=cli
 - **Build Pipeline**: Coordinated builds with proper dependency order
 
 ### Technology Stack
-- **Frontend**: React + Ink (terminal UI)
+- **Desktop App**: Electron + React (native macOS UI)
 - **Backend Services**: Node.js + TypeScript
 - **AI Integration**: Azure OpenAI (Whisper + GPT)
 - **Audio**: node-record-lpcm16 + whisper.cpp
-- **Database**: Supabase (PostgreSQL) - legacy components
-- **Authentication**: Removed - no authentication required
-- **Build**: TypeScript + npm workspaces
+- **System Integration**: macOS menu bar, global shortcuts
+- **Build**: TypeScript + npm workspaces + Electron Builder
 
 ## 📋 Troubleshooting
 
@@ -328,10 +275,10 @@ npm run test --workspace=cli
 
 2. **Build Errors**
    - Build shared services first: `npm run build --workspace=shared`
-   - Then build CLI: `npm run build --workspace=cli`
+   - Then build Electron app: `npm run build --workspace=electron`
 
 3. **Import Errors**
-   - Make sure shared services are built before building CLI
+   - Make sure shared services are built before building Electron app
    - Check TypeScript project references in `tsconfig.json`
 
 4. **Audio Issues**
@@ -355,11 +302,10 @@ For detailed troubleshooting, see [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING
 
 ```bash
 # Start development
-npm run dev              # Watch mode for all workspaces
-npm run start --workspace=cli  # Run CLI
+npm run dev:electron     # Electron development mode
+npm run dev:shared       # Watch mode for shared services
 
 # Before committing
-npm run test:fast        # Quick validation
 npm run lint            # Code style check
 npm run type-check      # TypeScript validation
 ```
